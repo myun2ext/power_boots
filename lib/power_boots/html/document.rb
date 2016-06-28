@@ -1,8 +1,10 @@
 module PowerBoots
   module Html
     class Document
-      def initialize
-        @content = ''
+      attr_reader :document
+
+      def initialize(content = '')
+        @content = content
       end
 
       def doctype(version = 5)
@@ -10,7 +12,7 @@ module PowerBoots
       end
 
       def to_s
-        doctype + '<html>' + @content + '</html>'
+        doctype + '<html>' + content + '</html>'
       end
     end
   end
