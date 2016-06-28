@@ -1,9 +1,7 @@
-require 'sinatra'
 require 'power_boots'
+require 'power_boots/sinatra'
 
-class Document < PowerBoots::Html::Document
-end
-
-get '/' do
-  PowerBoots::Html::Document.new.to_s
+PowerBoots.sinatra do
+  title 'Power Boots'
+  h1 'Power Boots'
 end
