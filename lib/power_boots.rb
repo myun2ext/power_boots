@@ -4,6 +4,10 @@ require "power_boots/html/head"
 require "power_boots/html/body"
 require "power_boots/html/tag"
 require "power_boots/css/selector"
+require "power_boots/document"
 
 module PowerBoots
+  def self.new
+    PowerBoots::Document.new
+  end
 end
