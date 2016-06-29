@@ -1,19 +1,33 @@
 module PowerBoots
   module Html
     class Tag
-      attr_reader :name, :content, :attributes
+      attr_reader :name, :attributes
 
-      def initialize(name, content = "", attributes: nil, close: true)
+      def initialize(name, content = "", attributes: nil, close: true, &block)
         @name = name
-        @content = content
+        @content = block || content
         @close = close
         @attributes = attributes
       end
 
       def to_s
-        s = "<#{name}#{attributes_to_s}>" + @content
+        s = "<#{name}#{attributes_to_s}>" + content
         s += "</#{name}>" if @close
         s
+      end
+
+      def content
+        if @content.is_a? Proc
+          p = @content
+          @content = ''
+          p.call(self)
+        else
+          @content
+        end
+      end
+
+      def method_missing(name, *args, &block)
+        @content += PowerBoots::Html::Tag.new(name, *args, &block).to_s
       end
 
       private
