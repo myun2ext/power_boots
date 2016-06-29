@@ -1,13 +1,5 @@
 require 'sinatra/base'
 
-def title(s)
-  @title = s
-end
-
-def h1(s)
-  @h1 = s
-end
-
 module PowerBoots
   class Sinatra < Sinatra::Base
     set :bind, '0.0.0.0'

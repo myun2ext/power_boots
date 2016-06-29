@@ -1,10 +1,8 @@
 module PowerBoots
   module Html
     class Document
-      attr_reader :content
-
-      def initialize(content = '')
-        @content = content
+      def initialize(content = '', &block)
+        @content = block || content
       end
 
       def doctype(version = 5)
@@ -13,6 +11,20 @@ module PowerBoots
 
       def to_s
         doctype + '<html>' + content + '</html>'
+      end
+
+      def content
+        if @content.is_a? Proc
+          p = @content
+          @content = ''
+          p.call(self)
+        else
+          @content
+        end
+      end
+
+      def method_missing(name, *args, &block)
+        @content += PowerBoots::Html::Tag.new(name, *args, &block).to_s
       end
     end
   end
