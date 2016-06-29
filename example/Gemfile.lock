@@ -13,6 +13,11 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra-bootstrap (0.6.1)
+      sinatra (>= 1.0)
+      sinatra-outputbuffer
+    sinatra-outputbuffer (0.1.0)
+      sinatra (>= 1.0.a)
     tilt (2.0.5)
 
 PLATFORMS
@@ -21,6 +26,7 @@ PLATFORMS
 DEPENDENCIES
   power_boots!
   sinatra
+  sinatra-bootstrap
 
 BUNDLED WITH
    1.12.5
