@@ -1,7 +1,7 @@
 module PowerBoots
   module Html
     class Document
-      attr_reader :document
+      attr_reader :content
 
       def initialize(content = '')
         @content = content
