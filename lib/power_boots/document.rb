@@ -46,8 +46,27 @@ module PowerBoots
     end
 
     def nav(body)
-      body.nav title: app_name, active: 'Home', links: {
-        'Home' => '/', 'About' => '/about', 'Contact' => '/contact' }
+      body.nav title: app_name, active: active_page, links: navigations
+    end
+
+    def navigations(nv = nil)
+      if nv
+        @navigations = nv
+      else
+        @navigations || {
+          'Home' => '/',
+          'About' => '/about',
+          'Contact' => '/contact'
+        }
+      end
+    end
+
+    def active_page(t = nil)
+      if t
+        @active_page = t
+      else
+        @active_page || 'Home'
+      end
     end
 
     def body

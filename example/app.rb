@@ -4,10 +4,16 @@ require 'sinatra'
 #alias sinatra_get get
 def route(method, path, title: nil, &block)
   send method, path do
-    PowerBoots::Document.new(:bs3) do |doc|
-      doc.app_name "Power Boots"
-      doc.title title
-      doc.main(&block)
+    PowerBoots::Document.new(:bs3) do |app|
+      app.app_name "Power Boots"
+      app.navigations(
+        'Home' => '/',
+        'About' => '/about',
+        'Contact' => '/contact'
+      )
+      app.active_page title
+      app.title title
+      app.main(&block)
     end.render_html
   end
 end
