@@ -1,6 +1,10 @@
+require 'power_boots/html/head_helpers'
+
 module PowerBoots
   module Html
     class Tag
+      include HeadHelpers
+
       attr_reader :name, :attributes
 
       def initialize(name, content = "", attributes: nil, close: true, &block)
