@@ -5,6 +5,7 @@ module PowerBoots
     def initialize(layout, &block)
       @layout = layout
       @block = block
+      @app_name = ''
     end
 
     def app_name(t = nil)
@@ -18,11 +19,15 @@ module PowerBoots
     def title(t = nil)
       if t
         @title = t
-      elsif @app_name
-        @app_name + ' - ' + @title
       else
-        @title || 'Power Boots'
+        @title || @app_name || 'Power Boots'
       end
+    end
+
+    def app_name_and_title
+      s = @app_name
+      s += ' - ' + @title if @title
+      s
     end
 
     def main(&block)
@@ -35,7 +40,7 @@ module PowerBoots
 
     def head
       doc.head do |head|
-        head.title title
+        head.title app_name_and_title
         assets(head)
       end
     end
