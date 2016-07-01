@@ -7,8 +7,22 @@ module PowerBoots
       @block = block
     end
 
-    def title(t)
-      @title = t
+    def app_name(t = nil)
+      if t
+        @app_name = t
+      else
+        @app_name || @title || 'Power Boots'
+      end
+    end
+
+    def title(t = nil)
+      if t
+        @title = t
+      elsif @app_name
+        @app_name + ' - ' + @title
+      else
+        @title || 'Power Boots'
+      end
     end
 
     def main(&block)
@@ -21,13 +35,13 @@ module PowerBoots
 
     def head
       doc.head do |head|
-        head.title @title
+        head.title title
         assets(head)
       end
     end
 
     def nav(body)
-      body.nav title: @title, active: 'Home', links: {
+      body.nav title: app_name, active: 'Home', links: {
         'Home' => '/', 'About' => '/about', 'Contact' => '/contact' }
     end
 
@@ -35,7 +49,7 @@ module PowerBoots
       doc.body style: "padding-top: 50px" do |body|
         nav(body)
         body.container do |con|
-          con.h1 @title
+          con.h1 title
           @main.call(con)
         end
       end
