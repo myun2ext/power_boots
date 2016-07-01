@@ -2,8 +2,8 @@ require 'power_boots'
 require 'sinatra'
 
 #alias sinatra_get get
-def route(method, path, title: nil, &block)
-  send method, path do
+def page(path, title: nil, &block)
+  get path do
     PowerBoots::Document.new(:bs3) do |app|
       app.app_name "Power Boots"
       app.navigations(
@@ -18,10 +18,10 @@ def route(method, path, title: nil, &block)
   end
 end
 
-route :get, '/' do |con|
+page '/' do |con|
   con.p "Power Bootstrap and templates.", class: :lead
 end
 
-route :get, '/about', title: 'About' do |con|
+page '/about', title: 'About' do |con|
   con.p "About.", class: :lead
 end
