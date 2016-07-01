@@ -11,6 +11,10 @@ module PowerBoots
       @title = t
     end
 
+    def main(&block)
+      @main = block
+    end
+
     def assets(head)
       head.link_css "/bs3/css/bootstrap.min.css"
     end
@@ -23,16 +27,8 @@ module PowerBoots
     end
 
     def nav(body)
-      body.nav :inverse, "fixed-top" do |nav|
-        nav.container do |con|
-          con.a @title, class: "navbar-brand", href: '/'
-          con.ul class: 'nav navbar-nav' do |ul|
-            ul.li class: :active do |li| li.a 'Home', href: '/' end
-            ul.li do |li| li.a 'About', href: '/about' end
-            ul.li do |li| li.a 'Contact', href: '/contact' end
-          end
-        end
-      end
+      body.nav title: @title, active: 'Home', links: {
+        'Home' => '/', 'About' => '/about', 'Contact' => '/contact' }
     end
 
     def body
@@ -40,6 +36,7 @@ module PowerBoots
         nav(body)
         body.container do |con|
           con.h1 @title
+          @main.call(con)
         end
       end
     end

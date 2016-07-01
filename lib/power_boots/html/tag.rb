@@ -27,6 +27,7 @@ module PowerBoots
           p = @content
           @content = ''
           p.call(self)
+          @content
         else
           @content
         end
