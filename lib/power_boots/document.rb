@@ -23,11 +23,20 @@ module PowerBoots
     end
 
     def nav(body)
-      body.nav :inverse, "fixed-top"
+      body.nav :inverse, "fixed-top" do |nav|
+        nav.container do |con|
+          con.a @title, class: "navbar-brand", href: '/'
+          con.ul class: 'nav navbar-nav' do |ul|
+            ul.li class: :active do |li| li.a 'Home', href: '/' end
+            ul.li do |li| li.a 'About', href: '/about' end
+            ul.li do |li| li.a 'Contact', href: '/contact' end
+          end
+        end
+      end
     end
 
     def body
-      doc.body do |body|
+      doc.body style: "padding-top: 50px" do |body|
         nav(body)
         body.container do |con|
           con.h1 @title
