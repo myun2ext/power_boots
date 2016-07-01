@@ -1,19 +1,22 @@
 module PowerBoots
   module Html
     module FormHelpers
-      def input name, type: :text
+      def input name, attributes = {}
+        attributes[:type] = :text unless attributes[:type]
+        attributes[:name] = name
+        attributes[:class] = "form-control" unless attributes[:class]
+        attributes[:id] = name
+
         name = name.to_s
         div class: "form-group" do |g|
           g.label name.capitalize, for: name
-          g.tag :input, name: name, type: type, class: "form-control", id: name
+          g.tag :input, attributes
         end
       end
-      def password name
-        name = name.to_s
-        div class: "form-group" do |g|
-          g.label name.capitalize, for: name
-          g.tag :input, name: name, type: :password, class: "form-control", id: name
-        end
+      def password name, attributes = {}
+        attr = attributes.dup
+        attr[:type] = :password
+        input name, attr
       end
 
       def submit name

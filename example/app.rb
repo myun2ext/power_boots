@@ -20,10 +20,11 @@ end
 
 page '/' do |con|
   con.p "Power Bootstrap and templates.", class: :lead
+  con.h3 "Login"
 
-  con.form do |f|
-    f.input     :email
-    f.password  :password
+  con.form style: "width: 200px" do |f|
+    f.input     :email,    placeholder: "Your Email Address"
+    f.password  :password, placeholder: "Your Password"
     f.submit    :login
   end
 end
