@@ -20,6 +20,12 @@ end
 
 page '/' do |con|
   con.p "Power Bootstrap and templates.", class: :lead
+
+  con.form do |f|
+    f.input     :email
+    f.password  :password
+    f.submit    :login
+  end
 end
 
 page '/about', title: 'About' do |con|
