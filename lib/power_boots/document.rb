@@ -1,5 +1,7 @@
 module PowerBoots
   class Document
+    attr_reader :doc
+
     def initialize(layout, &block)
       @layout = layout
       @block = block
@@ -9,22 +11,38 @@ module PowerBoots
       @title = t
     end
 
-    def render_html_bs3
-      PowerBoots::Html::Document.new do |doc|
-        doc.head do |head|
-          head.link_css "/bs3/css/bootstrap.min.css"
-          head.title @title
-        end
+    def assets(head)
+      head.link_css "/bs3/css/bootstrap.min.css"
+    end
 
-        doc.body do |body|
-          body.h1 @title
+    def head
+      doc.head do |head|
+        head.title @title
+        assets(head)
+      end
+    end
+
+    def nav(body)
+      body.nav :inverse, "fixed-top"
+    end
+
+    def body
+      doc.body do |body|
+        nav(body)
+        body.container do |con|
+          con.h1 @title
         end
-      end.to_s
+      end
     end
 
     def render_html
       @block.call(self)
-      render_html_bs3
+
+      PowerBoots::Html::Document.new do |doc|
+        @doc = doc
+        head
+        body
+      end.to_s
     end
   end
 end
