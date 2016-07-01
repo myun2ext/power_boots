@@ -9,11 +9,11 @@ module PowerBoots
 
       attr_reader :name, :attributes
 
-      def initialize(name, content = "", attributes: nil, close: true, &block)
+      def initialize(name, content = "", attributes = {}, close = true, &block)
         @name = name
-        @content = block || content
+        @content = block || (content.is_a?(Hash)? '' : content)
         @close = close
-        @attributes = attributes
+        @attributes = content.is_a?(Hash)? content : attributes
       end
 
       def to_s
@@ -32,8 +32,11 @@ module PowerBoots
         end
       end
 
-      def method_missing(name, *args, &block)
-        @content += PowerBoots::Html::Tag.new(name, *args, &block).to_s
+      def tag(name, content = "", attributes = {}, close = true, &block)
+        @content += PowerBoots::Html::Tag.new(name, content, attributes, close, &block).to_s
+      end
+      def method_missing(name, content = "", attributes = {}, close = true, &block)
+        @content += PowerBoots::Html::Tag.new(name, content, attributes, close, &block).to_s
       end
 
       private

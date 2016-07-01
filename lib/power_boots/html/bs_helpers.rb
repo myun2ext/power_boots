@@ -3,16 +3,12 @@ module PowerBoots
     module BsHelpers
       def nav(*options, &block)
         options_s = options.map { |option| " navbar-#{option}" }.join
-        @content += "<nav class=\"navbar#{options_s}\">"
-        @content += block.call(self) if block
-        @content += "</nav>"
+        tag :nav, class: "navbar" + options_s, &block
       end
 
       def container(*options, &block)
         options_s = options.map { |option| " #{option}" }.join
-        @content += "<div class=\"container#{options_s}\">"
-        @content += block.call(self) if block
-        @content += "</div>"
+        div class: "container" + options_s, &block
       end
     end
   end
