@@ -35,6 +35,14 @@ module PowerBoots
         end
       end
 
+      def space
+        @content += ' '
+      end
+
+      def text(t)
+        @content += t
+      end
+
       def tag(name, content = "", attributes = {}, close = true, &block)
         @content += PowerBoots::Html::Tag.new(name, content, attributes, close, &block).to_s
       end

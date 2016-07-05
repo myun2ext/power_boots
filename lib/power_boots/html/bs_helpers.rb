@@ -17,6 +17,11 @@ module PowerBoots
         end
       end
 
+      def btn(path, title, *options)
+        options_s = options.map { |option| " btn-#{option}" }.join
+        tag :a, title, class: "btn" + options_s, href: path
+      end
+
       def container(*options, &block)
         options_s = options.map { |option| " #{option}" }.join
         div class: "container" + options_s, &block
