@@ -1,12 +1,15 @@
 require 'power_boots/sinatra'
+require 'power_boots/bs3'
+
+name = "Power Boots"
 
 get '/' do
-  html do
+  bs3 do
     head do
-      title "Power Boots"
+      title name
     end
     body do
-      h1 "Power Boots"
+      h1 name
       tag :p, "Hello world!"
     end
   end
