@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Please show example dir.
+Please see example dir.
 
 ## Development
 
