@@ -3,12 +3,12 @@ require 'sinatra'
 
 get '/' do
   PowerBoots::Html::Document.new do |html|
-    html.head do |head|
-      head.title "Power Boots"
+    html.head do
+      title
     end
-    html.body do |body|
-      body.h1 "Power Boots"
-      body.p  "Hello world!"
+    html.body do
+      h1 "Power Boots"
+      p  "Hello world!"
     end
   end.to_s
 end
