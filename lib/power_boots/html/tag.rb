@@ -28,7 +28,7 @@ module PowerBoots
         if @content.is_a? Proc
           p = @content
           @content = ''
-          p.call(self)
+          instance_eval &p
           @content
         else
           @content
