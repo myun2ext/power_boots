@@ -2,11 +2,11 @@ require 'power_boots'
 require 'sinatra'
 
 get '/' do
-  PowerBoots::Html::Document.new do |html|
-    html.head do
-      title
+  PowerBoots::Html::Document.new do
+    head do
+      title "Power Boots"
     end
-    html.body do
+    body do
       h1 "Power Boots"
       p  "Hello world!"
     end
