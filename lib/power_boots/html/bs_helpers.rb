@@ -1,19 +1,39 @@
 module PowerBoots
   module Html
+    class Tag; end # Dummy
+
     module BsHelpers
-      def nav(title: 'Example', active: '', options: [:inverse, "fixed-top"], links: [])
-        options_s = options.map { |option| " navbar-#{option}" }.join
-        tag :nav, class: "navbar" + options_s do |nv|
-          nv.container do |con|
-            con.a title, class: "navbar-brand", href: '/'
-            con.ul class: 'nav navbar-nav' do |ul|
-              links.each do |title, href|
-                cls = (title == active)? :active : ''
-                ul.li class: cls do |li| li.a title, href: href end
-              end
-              ''
-            end
+      class NavLinks < PowerBoots::Html::Tag
+        def initialize(&block)
+          super :ul, class: 'nav navbar-nav', &block
+        end
+
+        def li(name, link = '#', attrbiutes = {})
+          tag :li, **attributes do
+            a name, href: link
           end
+        end
+      end
+
+      class NavContainer < PowerBoots::Html::Tag
+        def initialize(&block)
+          super :div, class: :container, &block
+        end
+
+        def brand(name, link='/')
+          a name, class: "navbar-brand", href: link
+        end
+
+        def links(&block)
+          @content += NavLinks.new(&block).to_s
+        end
+      end
+
+      def nav(options: [:inverse, "fixed-top"], &block)
+        options_s = options.map { |option| " navbar-#{option}" }.join
+
+        tag :nav, class: "navbar" + options_s do
+          @content += NavContainer.new(&block).to_s
         end
       end
 
