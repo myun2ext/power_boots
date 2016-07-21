@@ -15,7 +15,11 @@ get '/' do
           li "About",  '/about'
           li "Contact",'/contact'
         end
+        links class: 'pull-right' do
+          li "Sign in",'/sign_in'
+        end
       end
+
       container do
         h1 name
         tag :p, "Hello world!"

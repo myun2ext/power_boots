@@ -4,8 +4,10 @@ module PowerBoots
 
     module BsHelpers
       class NavLinks < PowerBoots::Html::Tag
-        def initialize(&block)
-          super :ul, class: 'nav navbar-nav', &block
+        def initialize(attributes={}, &block)
+          attributes = attributes.dup
+          attributes[:class] = (attributes[:class] || '') + ' nav navbar-nav'
+          super :ul, attributes, &block
         end
 
         def li(name, link = '#', attrbiutes = {})
@@ -24,8 +26,8 @@ module PowerBoots
           a name, class: "navbar-brand", href: link
         end
 
-        def links(&block)
-          @content += NavLinks.new(&block).to_s
+        def links(attributes={}, &block)
+          @content += NavLinks.new(**attributes, &block).to_s
         end
       end
 
