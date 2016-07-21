@@ -3,7 +3,12 @@ module PowerBoots
     def head(&block)
       tag :head do
         instance_eval &block
-        link_css "/bs3/css/bootstrap.min.css"
+
+        if PowerBoots.layout_type == :bs4
+          link_css "/bs4/css/bootstrap.min.css"
+        else
+          link_css "/bs3/css/bootstrap.min.css"
+        end
       end
     end
   end

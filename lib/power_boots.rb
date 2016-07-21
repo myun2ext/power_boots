@@ -4,7 +4,7 @@ require "power_boots/html/document"
 require "power_boots/css/selector"
 
 module PowerBoots
-  def self.new
-    PowerBoots::Document.new
+  def self.layout_type
+    :bs3
   end
 end

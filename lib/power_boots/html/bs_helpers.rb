@@ -11,8 +11,14 @@ module PowerBoots
         end
 
         def li(name, link = '#', attrbiutes = {})
-          tag :li, **attributes do
-            a name, href: link
+          if PowerBoots.layout_type == :bs4
+            tag :li, class: 'nav-item' do
+              a name, class: 'nav-link', href: link
+            end
+          else
+            tag :li, **attributes do
+              a name, href: link
+            end
           end
         end
       end
@@ -33,6 +39,8 @@ module PowerBoots
 
       def nav(options: [:inverse, "fixed-top"], &block)
         options_s = options.map { |option| " navbar-#{option}" }.join
+
+        options_s += " bg-inverse navbar-dark" if PowerBoots.layout_type == :bs4 && options.include?(:inverse)
 
         tag :nav, class: "navbar" + options_s do
           @content += NavContainer.new(&block).to_s
