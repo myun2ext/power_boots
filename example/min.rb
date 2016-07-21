@@ -1,8 +1,7 @@
-require 'power_boots'
-require 'sinatra'
+require 'power_boots/sinatra'
 
 get '/' do
-  PowerBoots::Html::Document.new do
+  html do
     head do
       title "Power Boots"
     end
@@ -10,5 +9,5 @@ get '/' do
       h1 "Power Boots"
       p  "Hello world!"
     end
-  end.to_s
+  end
 end
