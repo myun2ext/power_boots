@@ -4,6 +4,23 @@ require 'power_boots/bs3'
 enable :sessions
 set :session_secret, 'power boots secret'
 
+database :sqlite3, 'example.sqlite'
+
+class User < PowerBoots::Models::Base
+  include PowerBoots::Models::Authentication
+
+  validates :name, :email, presence: true
+
+  def self.create_table
+    super do |t|
+      t.string :name,  null: false
+      t.string :email, null: false
+      add_authentication_columns(t)
+    end
+  end
+end
+User.create_table
+
 def page(name, &block)
   app_name = "Power Boots"
 
@@ -64,6 +81,7 @@ get '/sign_in' do
       password :password
       submit
     end
+    btn 'Sing up', '/sign_up'
   end
 end
 
@@ -74,6 +92,17 @@ end
 
 get '/sign_up' do
   page 'Sign Up' do
-    tag :p, "Contact us."
+    form '/sign_up' do
+      text_field :name
+      text_field :email
+      password :password
+      password :password_confirmation
+      submit
+    end
   end
+end
+
+post '/sign_up' do
+  User.create(params)
+  redirect to '/'
 end
