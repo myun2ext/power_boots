@@ -6,7 +6,7 @@ set :session_secret, 'power boots secret'
 
 database :sqlite3, 'example.sqlite'
 
-class User < PowerBoots::Models::Base
+class User < ActiveRecord::Base
   include PowerBoots::Models::Authentication
 
   validates :name, :email, presence: true
