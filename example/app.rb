@@ -80,8 +80,8 @@ get '/sign_in' do
       text_field :name
       password :password
       submit
+      btn 'Sing up', '/sign_up', :success
     end
-    btn 'Sing up', '/sign_up'
   end
 end
 
@@ -93,10 +93,10 @@ end
 get '/sign_up' do
   page 'Sign Up' do
     form '/sign_up' do
-      text_field :name
-      text_field :email
-      password :password
-      password :password_confirmation
+      text_field :name,   placeholder: 'Johnson Williams'
+      text_field :email,  placeholder: 'johnson@williams.com'
+      password :password, placeholder: 'Minimum 8 charactors and use numerics and alphabets'
+      password :password_confirmation, placeholder: 'Require confirmation'
       submit
     end
   end

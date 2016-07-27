@@ -47,7 +47,8 @@ module PowerBoots
         end
       end
 
-      def btn(path, title, *options)
+      def btn(title, path, *options)
+        options = ["primary"] if options.empty?
         options_s = options.map { |option| " btn-#{option}" }.join
         tag :a, title, class: "btn" + options_s, href: path
       end

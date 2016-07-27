@@ -8,6 +8,7 @@ module PowerBoots
           link_css "/bs4/css/bootstrap.min.css"
         else
           link_css "/bs3/css/bootstrap.min.css"
+          link_css "/bs3.css"
         end
       end
     end

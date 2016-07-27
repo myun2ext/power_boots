@@ -43,6 +43,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   bcrypt
   power_boots!
   sinatra
