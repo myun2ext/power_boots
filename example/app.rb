@@ -14,17 +14,11 @@ set :session_secret, 'power boots secret'
 database :sqlite3, 'example.sqlite'
 
 class User < ActiveRecord::Base
+  include PowerBoots::ActiveRecordExtentions
   include PowerBoots::Models::Authentication
 
-  validates :name, :email, presence: true
-
-  def self.create_table
-    super do |t|
-      t.string :name,  null: false
-      t.string :email, null: false
-      add_authentication_columns(t)
-    end
-  end
+  attribute :name,  :string, presence: true, uniqueness: true
+  attribute :email, :string, presence: true, uniqueness: true
 
   def self.authenticate(params)
     self.find_by(name: params[:name]).try(:authenticate, params)
