@@ -97,9 +97,9 @@ post '/sign_in' do
   redirect to '/'
 end
 
-get '/sign_up' do
+def sign_up(user = nil)
   page 'Sign Up' do
-    form '/sign_up' do
+    form '/sign_up', user do
       text_field :name,   placeholder: 'Johnson Williams'
       text_field :email,  placeholder: 'johnson@williams.com'
       password :password, placeholder: 'Minimum 8 charactors and use numerics and alphabets'
@@ -109,7 +109,15 @@ get '/sign_up' do
   end
 end
 
+get '/sign_up' do
+  sign_up
+end
+
 post '/sign_up' do
-  User.create(params)
-  redirect to '/'
+  user = User.create(params)
+  if user.valid?
+    redirect to '/'
+  else
+    sign_up user
+  end
 end
