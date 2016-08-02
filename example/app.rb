@@ -1,5 +1,12 @@
 require 'power_boots/sinatra'
 require 'power_boots/bs3'
+require 'better_errors'
+
+configure :development do
+  use BetterErrors::Middleware
+  BetterErrors::Middleware.allow_ip! '0.0.0.0/0'
+  BetterErrors.application_root = __dir__
+end
 
 enable :sessions
 set :session_secret, 'power boots secret'
