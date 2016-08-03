@@ -1,13 +1,9 @@
 require 'power_boots/html/head_helpers'
-require 'power_boots/html/bs_helpers'
-require 'power_boots/html/form_helpers'
 
 module PowerBoots
   module Html
     class Tag
       include HeadHelpers
-      include BsHelpers
-      include FormHelpers
 
       attr_reader :name, :attributes
 

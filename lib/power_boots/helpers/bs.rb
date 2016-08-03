@@ -1,6 +1,14 @@
+require 'power_boots/helpers/bs/nav'
+require 'power_boots/helpers/bs/form'
+require 'power_boots/helpers/bs/alert'
+
 module PowerBoots
-  module Html
-    module BsHelpers
+  module Helpers
+    module Bs
+      include Nav
+      include Form
+      include Alert
+
       def btn(title, path, *options)
         options = ["primary"] if options.empty?
         options_s = options.map { |option| " btn-#{option}" }.join
