@@ -15,6 +15,9 @@ module PowerBoots
   end
 end
 
+require 'power_boots/helpers/bs/alert'
+PowerBoots::Html::Tag.include PowerBoots::Helpers::Bs::Alert
+
 def bs3(&block)
   PowerBoots::Bs3.new(&block).to_s
 end
