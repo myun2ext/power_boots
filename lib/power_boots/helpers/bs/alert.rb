@@ -15,6 +15,10 @@ module PowerBoots
             end
           end
         end
+        def failer(messages)   alert(messages) end
+        def failed(messages)   alert(messages) end
+        def error(messages)    alert(messages) end
+        def success(messages)  alert(messages, type: :success) end
         def notice(messages)   alert(messages, type: :success) end
         def info(messages)     alert(messages, type: :info)    end
         def warning(messages)  alert(messages, type: :warning) end

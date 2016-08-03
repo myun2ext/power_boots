@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
       add_authentication_columns(t)
     end
   end
+
+  def self.authenticate(params)
+    self.find_by(name: params[:name]).try(:authenticate, params)
+  end
 end
 User.create_table
 
@@ -60,11 +64,11 @@ get '/' do
 
   if user_name
     page "Welcome #{user_name}!" do
-      tag :p, "Hello #{user_name}! And welcome back."
+      notice "Hello #{user_name}! And welcome back."
     end
   else
     page 'Home' do
-      tag :p, "Hello Power Boots."
+      info "Hello Power Boots."
     end
   end
 end
@@ -81,20 +85,27 @@ get '/contact' do
   end
 end
 
-get '/sign_in' do
+def sign_in(status = nil)
   page 'Sign In' do
     form '/sign_in' do
+      if status == false
+        error 'Invalid name or password'
+      end
       text_field :name
       password :password
-      submit
+      submit 'Login'
       btn 'Sing up', '/sign_up', :success
     end
   end
 end
-
+get '/sign_in' do sign_in end
 post '/sign_in' do
-  session[:user_name] = params[:name]
-  redirect to '/'
+  if user = User.authenticate(params)
+    session[:user_name] = user.name
+    redirect to '/'
+  else
+    sign_in(false)
+  end
 end
 
 def sign_up(user = nil)
@@ -108,14 +119,11 @@ def sign_up(user = nil)
     end
   end
 end
-
-get '/sign_up' do
-  sign_up
-end
-
+get '/sign_up' do sign_up end
 post '/sign_up' do
   user = User.create(params)
   if user.valid?
+    session[:user_name] = user.name
     redirect to '/'
   else
     sign_up user
