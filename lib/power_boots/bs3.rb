@@ -15,7 +15,9 @@ module PowerBoots
   end
 end
 
+require 'power_boots/helpers/bs/nav'
 require 'power_boots/helpers/bs/alert'
+PowerBoots::Html::Tag.include PowerBoots::Helpers::Bs::Nav
 PowerBoots::Html::Tag.include PowerBoots::Helpers::Bs::Alert
 
 def bs3(&block)
