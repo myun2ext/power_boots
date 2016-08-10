@@ -9,6 +9,15 @@ module PowerBoots
       validates name, options
     end
 
+    def attributes(attrs)
+      @attributes = attrs
+      attrs.each do |name, opts|
+        opts = opts.dup
+        opts.delete :type
+        validates name, opts
+      end
+    end
+
     def table_exists?
       ActiveRecord::Base.connection.table_exists? table_name
     end
