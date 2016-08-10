@@ -16,9 +16,11 @@ database :sqlite3, 'example.sqlite'
 class User < ActiveRecord::Base
   include PowerBoots::ActiveRecordExtentions
   include PowerBoots::Models::Authentication
+  extend  PowerBoots::Validators
 
   attribute :name,  :string, presence: true, uniqueness: true
   attribute :email, :string, presence: true, uniqueness: true
+  only_alnum :name, captal: false, underscore: true
 
   def self.authenticate(params)
     self.find_by(name: params[:name]).try(:authenticate, params)
